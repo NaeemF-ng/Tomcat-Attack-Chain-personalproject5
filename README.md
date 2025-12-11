@@ -18,7 +18,12 @@ I completed this simulation in my homelab using both my kali and ubuntu vitual m
 
 ## Recon/ Scanning methodology
 nmap -A -sC (Metasploitable-ip)
-![](images/)
+![nmap scan](images/namp-scan.png)
+![nmap scan](images/namp-scan2.png)
+![nmap scan](images/namp-scan3.png)
+![nmap scan](images/namp-scan4.png)
+![nmap scan](images/namp-scan5.png)
+![nmap scan](images/namp-scan6.png)
 
 
 ## Attack Methodogy
@@ -36,7 +41,7 @@ nmap -A -sC (Metasploitable-ip)
 ![War shell uploaded](images/war-uploaded.png)
 ![War deployed](images/war-deployed.png)
 
-• Before I lauched the shell within the panel, I setup a netcat listener in order to catch the shell so I could execute commands from my attacker machine (kali).
+• Before I lauched the shell within the panel, I setup a netcat listener in order to catch the shell so I could execute commands from my attacker machine (kali). I then caught the shell and began trying to find information about the target as well as the stabilizing the shell, the reason being for more functionality and durability. There are many ways to stabilize your shell, i
 ![Netcat listener](images/nc-listener.png)
 ![](images/.png)
 ## Recommendations
