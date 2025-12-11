@@ -39,7 +39,9 @@ nmap -A -sC (Metasploitable-ip)
 ![Tomcat Manager Page](images/tomcat-manager-page.png)
 ![War reverse shell](images/war-reverse-shell.png)
 ![War shell uploaded](images/war-uploaded.png)
+![War rev shell webpage](images/reverse-webpage.png)
 ![War deployed](images/war-deployed.png)
+
 
 • Before I lauched the shell within the panel, I setup a netcat listener in order to catch the shell so I could execute commands from my attacker machine (kali). I then caught the shell and began trying to find information about the target as well as the stabilizing the shell, the reason being for more functionality and durability. There are many ways to stabilize your shell, as you can see i tried to using python3 and it didn't work but when I used the regular version of python it worked. 
 ![Netcat listener](images/nc-listener.png)
@@ -55,8 +57,23 @@ nmap -A -sC (Metasploitable-ip)
 ![Vulnerable suid binary](images/priv-esc6.png)
 ![GTFObins-screenshot](images/gtfo-bin-ss.png)
 
-• The nmap suid binary allowed me to escalate privileges resulting in me becoming the root user:
+• The nmap suid binary allowed me to escalate privileges resulting in me becoming the root user
 ![Root user](images/priv-esc7.png)
+
+• Once I became root I went back to the user msfadmin's directory to see to confirm that i'd be able to view valuable information such as ssh keys. I was able to view that information so I extracted msfadmin's ssh key to my attacker machine to  
+![msfadmin access](images/home.png)
+![msfadmin access](images/home2.png)
+
+• I was able to view that information so I extracted msfadmin's ssh key to my attacker machine as I could use it later to log back in.
+![msfadmin id_rsa transfer](images/idrsa-transfer.png)
+![msfadmin id_rsa transfer](images/idrsa-transfer2.png)
+It didn't work here because I was supposed to configure ssh a certain way on the target machine and I didn't know I had to so this would be more of an architectural error on my end but here would be next steps to log in using the ssh key:
+![Logging in with the ssh key](images/idrsa-next-steps.png)
+
+• To establish persistence within the taregt I added a reverse shell to the .bashrc file so that when the user logs in i'd get a shell
+![Persistence](images/persistence.png)
+
+• I transferred everything in the /etc/shadow file to attacker machine just to have all of the information about the target regarding personell and anything else valuable. 
 
 ## Recommendations
 ## MITRE ATT&CK Mapping
