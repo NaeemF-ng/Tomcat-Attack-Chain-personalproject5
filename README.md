@@ -41,7 +41,7 @@ nmap -A -sC (Metasploitable-ip)
 ![War shell uploaded](images/war-uploaded.png)
 ![War deployed](images/war-deployed.png)
 
-• Before I lauched the shell within the panel, I setup a netcat listener in order to catch the shell so I could execute commands from my attacker machine (kali). I then caught the shell and began trying to find information about the target as well as the stabilizing the shell, the reason being for more functionality and durability. There are many ways to stabilize your shell, i
+• Before I lauched the shell within the panel, I setup a netcat listener in order to catch the shell so I could execute commands from my attacker machine (kali). I then caught the shell and began trying to find information about the target as well as the stabilizing the shell, the reason being for more functionality and durability. There are many ways to stabilize your shell, as you can see i tried to using python3 and it didn't work but when I tried using just p
 ![Netcat listener](images/nc-listener.png)
 ![](images/.png)
 ## Recommendations
