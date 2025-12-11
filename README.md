@@ -53,7 +53,7 @@ nmap -A -sC (Metasploitable-ip)
 
 • I discovered that there was a vulnerable nmap suid binary that is usually never there. I went on GTFObins and saw that the nmap binary could be used to escalate privileges. It would affect all of the older versions nmap so I strongly felt that it would work considering mostly everything on this machine was outdated and exposed. 
 ![Vulnerable suid binary](images/priv-esc6.png)
-![GTFObins-screenshot](images/gtfo-bins-ss.png)
+![GTFObins-screenshot](images/gtfo-bin-ss.png)
 
 • The nmap suid binary allowed me to escalate privileges resulting in me becoming the root user:
 ![Root user](images/priv-esc7.png)
