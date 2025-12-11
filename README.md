@@ -41,9 +41,23 @@ nmap -A -sC (Metasploitable-ip)
 ![War shell uploaded](images/war-uploaded.png)
 ![War deployed](images/war-deployed.png)
 
-• Before I lauched the shell within the panel, I setup a netcat listener in order to catch the shell so I could execute commands from my attacker machine (kali). I then caught the shell and began trying to find information about the target as well as the stabilizing the shell, the reason being for more functionality and durability. There are many ways to stabilize your shell, as you can see i tried to using python3 and it didn't work but when I tried using just p
+• Before I lauched the shell within the panel, I setup a netcat listener in order to catch the shell so I could execute commands from my attacker machine (kali). I then caught the shell and began trying to find information about the target as well as the stabilizing the shell, the reason being for more functionality and durability. There are many ways to stabilize your shell, as you can see i tried to using python3 and it didn't work but when I used the regular version of python it worked. 
 ![Netcat listener](images/nc-listener.png)
-![](images/.png)
+
+• After stabilizng my shell I began to look through the target to see what I had access to, pivot to other users and access their files as well, I didn't have much permissions. This led me to attempt to escalate my privileges to the root use, I searched for suid binaries as those can possibly have vulnerabilities within them that I could take advantage of. 
+![Looking through the target](images/priv-esc1.png)
+![](images/priv-esc2.png)
+![](images/priv-esc3.png)
+![](images/priv-esc4.png)
+![](images/priv-esc5.png)
+
+• I discovered that there was a vulnerable nmap suid binary that is usually never there. I went on GTFObins and saw that the nmap binary could be used to escalate privileges. It would affect all of the older versions nmap so I strongly felt that it would work considering mostly everything on this machine was outdated and exposed. 
+![Vulnerable suid binary](images/priv-esc6.png)
+![GTFObins-screenshot](images/gtfo-bins-ss.png)
+
+• The nmap suid binary allowed me to escalate privileges resulting in me becoming the root user:
+![Root user](images/priv-esc7.png)
+
 ## Recommendations
 ## MITRE ATT&CK Mapping
 ## Conclusion
