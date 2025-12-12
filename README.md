@@ -74,9 +74,38 @@ It didn't work here because I was supposed to configure ssh a certain way on the
 ![Persistence](images/persistence.png)
 
 • I transferred everything in the /etc/shadow file to attacker machine just to have all of the information about the target regarding personell and anything else valuable. 
+![/etc/shadow](images/etc-shadow.png)
+
+• I took the hashes for the user and msfadmin accounts from the target and cracked them as another means to gain access
+[user hash crack](images/hashcrack1.png)
+[msfadmin hash crack](images/hashcrack2.png)
+
 
 ## Recommendations
+• Remove fefault credentials
+• Restrict access to the Tomcat interface to trusted IP's only
+• Disable war file uploads 
+• Regularly check for msiconfigured SUID binaries
+• Check for outbound connections as they can be C2 activity or reverse shells
+
+
 ## MITRE ATT&CK Mapping
+• Initial Access (T1078) – Used valid/default Tomcat credentials
+• Execution (T1059) – Command execution through the uploaded WAR reverse shell
+• Persistence (T1547) – From the reverse shell added to the .bashrc
+• Privilege Escalation (T1548) – Abuse of the vulnerable SUID nmap binary
+• Credential Access (T1003) – Extraction of /etc/shadow and SSH keys
+• Lateral Movement / Alternate Access (T1021) – The cracked passwords the use of ssh keys for re entry
+• Collection (T1005) – Gathering sensitive user and system data
+
 ## Conclusion
+This engagment demonstrated a complete attack chain and how attackers can quickly escalate their attacks from such a small msiconfiguration such as weakly protected management interface after gaining an initial foothold. The combination of outdated system software, weak credentials, and SUID binaries allowed me to carry out a full attack chain. 
+
 ## Lessons Learned
-![](images/.png)
+• Small flaws in a systems security can have drastic consequences
+• Familiarity with msfvenom reverse shells, uploading them, and executing them from a manager dashboard
+• Catching a shell with netcat, stabilizing the shell and the importanace of doing so
+• Finding SUID binaries
+• SUID priv escalation with GTFObins and finding SUID binaries
+
+
