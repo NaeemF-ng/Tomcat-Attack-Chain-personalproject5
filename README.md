@@ -48,7 +48,7 @@ nmap -A -sC (Metasploitable-ip)
 ![Netcat listener](images/nc-listener.png)
 
 • I conducted enumeration after gaining the shell in search of  accessible resources, assess permissions, and paths for privilege escalation. Due to limited user privileges I began to look for vertical escalation techniques and enumerated SUID binaries on the target system.
-![Looking through the target](images/priv-esc1.png)
+![Looking through the target](images/priv-esc.png)
 ![](images/priv-esc2.png)
 ![](images/priv-esc3.png)
 ![](images/priv-esc4.png)
