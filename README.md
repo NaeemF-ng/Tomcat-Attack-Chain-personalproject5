@@ -35,7 +35,7 @@ nmap -A -sC (Metasploitable-ip)
 
 
 ## Findings
-• Tomcat was configured with default credentials which as a reslut granted me access to the web application manager page. On this page I see that it was allowed war extension files to be uploaded and executed, I immidiately thought of creating and uploading a war reverse shell with msfvenom. 
+• The Apache Tomcat Manager was configured with default credentials, which allowed access to the web application management interface. The manager permitted WAR file uploads and execution. I leveraged this by uploading a WAR reverse shell payload using msfvenom to gain an initial foothold. 
 ![Tomcat Manager Page](images/tomcat-manager-page.png)
 ![War reverse shell](images/war-reverse-shell.png)
 ![War shell uploaded](images/war-uploaded.png)
@@ -43,40 +43,40 @@ nmap -A -sC (Metasploitable-ip)
 ![War deployed](images/war-deployed.png)
 
 
-• Before I lauched the shell within the panel, I setup a netcat listener in order to catch the shell so I could execute commands from my attacker machine (kali). I then caught the shell and began trying to find information about the target as well as the stabilizing the shell, the reason being for more functionality and durability. There are many ways to stabilize your shell, as you can see i tried to using python3 and it didn't work but when I used the regular version of python it worked. 
+• I prepared a netcat listener on my attacker machine (kali) before I executed it successfully received a reverse shell by triggering the deployed WAR shell. I stabilized the shell to improve usability and reliability allowing enhanced command execution for post exploitation activity.  
 ![Netcat listener](images/nc-listener.png)
 
-• After stabilizng my shell I began to look through the target to see what I had access to, pivot to other users and access their files as well, I didn't have much permissions. This led me to attempt to escalate my privileges to the root use, I searched for suid binaries as those can possibly have vulnerabilities within them that I could take advantage of. 
+• I conducted enumeration after gaining the shell in search of  accessible resources, assess permissions, and paths for privilege escalation. Due to limited user privileges I began to look for vertical escalation techniques and enumerated SUID binaries on the target system.
 ![Looking through the target](images/priv-esc1.png)
 ![](images/priv-esc2.png)
 ![](images/priv-esc3.png)
 ![](images/priv-esc4.png)
 ![](images/priv-esc5.png)
 
-• I discovered that there was a vulnerable nmap suid binary that is usually never there. I went on GTFObins and saw that the nmap binary could be used to escalate privileges. It would affect all of the older versions nmap so I strongly felt that it would work considering mostly everything on this machine was outdated and exposed. 
+•  I identified an SUID-enabled nmap binary which is uncommon and a high risk misconfiguration especially in older systems. I referenced GTFObins validate that the nmap binary was a potential exploitation path.  
 ![Vulnerable suid binary](images/priv-esc6.png)
 ![GTFObins-screenshot](images/gtfo-bin-ss.png)
 
-• The nmap suid binary allowed me to escalate privileges resulting in me becoming the root user
+• Knowing that the target "metasploitable" has a large attack surface and misconfigurations,  it ended up being succeptible to the binary so I abused it. The nmap suid binary allowed me to escalate privileges resulting in me becoming the root user.
 ![Root user](images/priv-esc7.png)
 
-• Once I became root I went back to the user msfadmin's directory to see to confirm that i'd be able to view valuable information such as ssh keys. I was able to view that information so I extracted msfadmin's ssh key to my attacker machine to  
+• With root access, I enumerated user home directories and confirmed that I had access to sensitive user artifacts including ssh keys.
 ![msfadmin access](images/home.png)
 ![msfadmin access](images/home2.png)
 
-• I was able to view that information so I extracted msfadmin's ssh key to my attacker machine as I could use it later to log back in.
+• Extracted the msfadmin SSH private key to my attacker (kali) machine as an alternate access point for future re-entry and persistence
 ![msfadmin id_rsa transfer](images/idrsa-transfer.png)
 ![msfadmin id_rsa transfer](images/idrsa-transfer2.png)
 It didn't work here because I was supposed to configure ssh a certain way on the target machine and I didn't know I had to so this would be more of an architectural error on my end but here would be next steps to log in using the ssh key:
 ![Logging in with the ssh key](images/idrsa-next-steps.png)
 
-• To establish persistence within the taregt I added a reverse shell to the .bashrc file so that when the user logs in i'd get a shell
+• Established persistence by adding a reverse shell inside the users .bashrc file so it executes the reverse shell upon login, ensuring that i'd still have access after the session is terminated
 ![Persistence](images/persistence.png)
 
-• I transferred everything in the /etc/shadow file to attacker machine just to have all of the information about the target regarding personell and anything else valuable. 
+• I collected credential data by transferring the users /etc/passwd file to my attacker machine for offline analysis 
 ![/etc/shadow](images/etc-shadow.png)
 
-• I took the hashes for the user and msfadmin accounts from the target and cracked them as another means to gain access
+• Cracked password hashes for local users, including user and msfadmin, providing me with additional paths via credential based to validate the overall impact of the compromise
 [user hash crack](images/hashcrack1.png)
 [msfadmin hash crack](images/hashcrack2.png)
 
