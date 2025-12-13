@@ -8,7 +8,8 @@
 
 ## Architecture
 I completed this simulation in my homelab using both my kali and ubuntu vitual machines. They were on a NAT network called "LAB" which is isolated from the internet making it a great environment for this project.
-![](images/)
+![Kali settings ](images/Homelab-setup1.png)
+![Metasploitable3 settings ](images/Homelab-setup2.png)
 
 ## Tools Used
 • nmap 
