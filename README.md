@@ -78,7 +78,8 @@ It didn't work here because I was supposed to configure ssh a certain way on the
 ![/etc/shadow](images/etc-shadow.png)
 
 • Cracked password hashes for local users, including user and msfadmin, providing me with additional paths via credential based to validate the overall impact of the compromise
-
+[user hash crack](images/hashcrack1.png)
+[msfadmin hash crack](images/hashcrack2.png)
 
 
 ## Recommendations
